@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -81,14 +82,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void placeDataInCubes()
     {
-        const float LEFT = -80f;
-        const float TOP = 80F;
-        const float FRONT = -80f;
+        const float LEFT = -400f;
+        const float TOP = 400F;
+        const float FRONT = -400f;
         float curX;
         float curY;
         float curZ;
-        float space = 25f;
-        float dblSpace = 32f;
+        float space = 125f;
+        float dblSpace = 160f;
 
 
         curZ = FRONT;
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
         } //z 
     }
 
+    
 
     private void readCSVData()
     {
@@ -177,19 +179,19 @@ public class GameManager : MonoBehaviour
             for (int c = 0; c < g.PUZZLESIZE; c++)
             {
                 int value;
-                if (lineRead.Length > 1)
+                if (lineRead.Contains(","))
                 {
                     commaPos = lineRead.IndexOf(',');
                     value = int.Parse(lineRead.Substring(0, commaPos));
-                    _puzzleData[lid][rid][c] = value;
+                    //_puzzleData[lid][rid][c] = value;
                     lineRead = lineRead.Substring(commaPos + 1);
                 }
                 else
                     value = int.Parse(lineRead);
 
                 _puzzleData[lid][rid][c] = value;
-
             }
+
 
         }
         catch (Exception x)
