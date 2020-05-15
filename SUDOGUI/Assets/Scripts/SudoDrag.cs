@@ -43,19 +43,20 @@ public class SudoDrag : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            turn(LEFT);
+            turn(RIGHT);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            turn(RIGHT);
+            turn(LEFT);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            turn(UP);
+            turn(DOWN);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            turn(DOWN);
+            turn(UP
+                );
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,20 @@ public class SudoCube : MonoBehaviour
     {
         _camera = Camera.main.transform;
         _buttonEnabled = new bool[g.PUZZLESIZE + 1];
-
+        loadCubePrefabArray();
     }
 
     void loadCubePrefabArray()
     {
+        _cubes = new SudoCube[10];
+
+        _cubes[0] = AssetDatabase.LoadAssetAtPath<SudoCube>("Assets/Prefabs/UNK.prefab"); 
+
+        for (int i = 1; i < g.PUZZLESIZE+1; i++)
+        {
+            _cubes[i] = AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/{i}.prefab"); 
+        }
+
 
     }
 
