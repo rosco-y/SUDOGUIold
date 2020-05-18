@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         readCSVData();
         //numberTheFaces();
         placeDataInCubes();
+        
 
     }
     private void initializePuzzleArray()

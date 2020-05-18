@@ -7,7 +7,8 @@ using UnityEditor;
 public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 {
     Transform _camera;
-    public int SudoValue { set; get; }
+    public int SudoValue { set; get; } = g.UNKNOWN;
+    bool _selectedValues;
 
     private void Start()
     {
@@ -23,12 +24,14 @@ public class SudoPromoted : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+
             Vector3 location = transform.position;
             Quaternion rotation = transform.rotation;
             Destroy(transform.gameObject);
             SudoCube nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/UNK.prefab"));
             nCube.transform.position = location;
             nCube.transform.rotation = rotation;
+            SudoValue = g.UNKNOWN;
         }
     }
 
