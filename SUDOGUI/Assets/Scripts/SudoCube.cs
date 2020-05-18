@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SudoCube : MonoBehaviour
@@ -14,7 +15,7 @@ public class SudoCube : MonoBehaviour
     bool[] _buttonEnabled;
     bool _sudoHole = false;
     int _sudoSolution;
-    public SudoCube[] _cubes;
+    SudoCube[] _cubes;
     void Start()
     {
         _camera = Camera.main.transform;
@@ -30,11 +31,10 @@ public class SudoCube : MonoBehaviour
 
         for (int i = 1; i < g.PUZZLESIZE+1; i++)
         {
-            _cubes[i] = AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/{i}.prefab"); 
+            _cubes[i] = AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/s{i}.prefab"); 
         }
-
-
     }
+
 
     // Update is called once per frame
     void Update()
@@ -43,10 +43,6 @@ public class SudoCube : MonoBehaviour
         transform.rotation = _camera.rotation;
     }
 
-    public void ButtonClick(Button button)
-    {
-
-    }
 
     public int SudoValue
     {
@@ -109,5 +105,6 @@ public class SudoCube : MonoBehaviour
         nCube.transform.position = location;
         nCube.transform.rotation = rotation;
     }
+
 
 }
