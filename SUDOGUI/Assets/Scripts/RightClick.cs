@@ -36,8 +36,8 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
     void placeCube(string cubeNo, Vector3 location, Quaternion rotation)
     {
 
-        SudoCube nCube;
-        nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/u{cubeNo}.prefab"));
+        SudoPromoted nCube;
+        nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoPromoted>($"Assets/Prefabs/u{cubeNo}.prefab"));
         nCube.transform.position = location;
         nCube.transform.rotation = rotation;
     }

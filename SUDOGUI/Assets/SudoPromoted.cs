@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEditor;.
+using UnityEditor;
 
 public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 {
