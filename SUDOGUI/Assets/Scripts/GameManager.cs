@@ -23,10 +23,30 @@ public class GameManager : MonoBehaviour
     {
         readCSVData();
         //numberTheFaces();
+        makeHoles();
         placeDataInCubes();
-        
+
 
     }
+
+    int[] pattern;
+    private void makeHoles()
+    {
+        UnityEngine.Random rand = new UnityEngine.Random();
+
+        for (int L = 0; L < g.PUZZLESIZE; L++)
+        {
+            for (int R = 0; R < g.PUZZLESIZE; R++)
+            {
+                for (int C = 0; C < g.PUZZLESIZE; C++)
+                {
+                    if (g.RandomBool())
+                        _puzzleData[L][R][C] *= -1;
+                }
+            }
+        }
+    }
+
     private void initializePuzzleArray()
     {
         _puzzleData = new int[g.PUZZLESIZE][][];
@@ -144,7 +164,7 @@ public class GameManager : MonoBehaviour
         } //z 
     }
 
-    
+
 
     private void readCSVData()
     {

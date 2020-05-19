@@ -21,12 +21,14 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
                 if (_selected)
                 {
                     GetComponentInParent<SudoCube>().SelectedValues[int.Parse(text.text)] = true;
-                    text.color = Color.black;
+                    text.color = Color.blue;
+                    text.fontStyle = FontStyles.Bold;
                 }
                 else
                 {
                     GetComponentInParent<SudoCube>().SelectedValues[int.Parse(text.text)] = false;
                     text.color = Color.grey;
+                    text.fontStyle = FontStyles.Normal;
                 }
                 break;
             case PointerEventData.InputButton.Right:
