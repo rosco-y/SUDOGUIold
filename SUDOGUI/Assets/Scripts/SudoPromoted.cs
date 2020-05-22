@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using System;
 
 public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 {
@@ -22,17 +23,26 @@ public class SudoPromoted : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        g.Click();
+        if (g.DoubleClick)
+        {
+            rightClick();
+        }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-
-            Vector3 location = transform.position;
-            Quaternion rotation = transform.rotation;
-            Destroy(transform.gameObject);
-            SudoCube nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/UNK.prefab"));
-            nCube.transform.position = location;
-            nCube.transform.rotation = rotation;
-            SudoValue = g.UNKNOWN;
+            rightClick(); 
         }
+    }
+
+    void rightClick()
+    {
+        Vector3 location = transform.position;
+        Quaternion rotation = transform.rotation;
+        Destroy(transform.gameObject);
+        SudoCube nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/UNK.prefab"));
+        nCube.transform.position = location;
+        nCube.transform.rotation = rotation;
+        SudoValue = g.UNKNOWN;
     }
 
 }
