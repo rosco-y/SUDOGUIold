@@ -5,22 +5,23 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
 using System;
+using System.IO;
 
 public class RightClick : MonoBehaviour, IPointerClickHandler
 {
     bool _selected = false;
     DateTime lastLeftClickTime = DateTime.MinValue;
-
+    bool _error;
 
     public void OnPointerClick(PointerEventData eventData)
     {
         g.Click();
-        switch (eventData.button)                                                                                         
+        switch (eventData.button)
         {
-          case PointerEventData.InputButton.Left:
+            case PointerEventData.InputButton.Left:
                 if (g.DoubleClick)
                 {
-                        rightClick(); // double click is handled the same as left rightclick
+                    rightClick(); // double click is handled the same as left rightclick
                 }
                 else
                 {
@@ -38,12 +39,13 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
 
     void rightClick()
     {
-        GameObject parent = this.GetComponentInParent<SudoCube>().gameObject;
-        Vector3 location = parent.transform.position;
-        Quaternion rotation = parent.transform.rotation;
+        SudoCube parent = this.GetComponentInParent<SudoCube>();
+        Vector3 location = parent.gameObject.transform.position;
+        Quaternion rotation = parent.gameObject.transform.rotation;
         Button rbutton = GetComponentInChildren<Button>(); // uniquely named in this block
         TMP_Text rtext = rbutton.GetComponentInChildren<TMP_Text>();
-        Destroy(parent);
+        _error = rtext.text != parent.SudoSolution.ToString();
+        Destroy(parent.gameObject);
         placeCube(rtext.text, location, rotation);
     }
 
@@ -70,10 +72,23 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
     {
 
         SudoPromoted nCube;
-        nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoPromoted>($"Assets/Prefabs/u{cubeNo}.prefab"));
-        nCube.SudoValue = int.Parse(cubeNo);
-        nCube.transform.position = location;
-        nCube.transform.rotation = rotation;
+        string sCubeDir;
+        if (!_error)
+            sCubeDir = $"Assets/Prefabs/u{cubeNo}.prefab";
+        else
+            sCubeDir = $"Assets/Prefabs/Error/e{cubeNo}.prefab";
+        try
+        {
+            nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoPromoted>(sCubeDir));
+            nCube.SudoValue = int.Parse(cubeNo);
+            nCube.transform.position = location;
+            nCube.transform.rotation = rotation;
+        }
+        catch (Exception x)
+        {
+            Debug.Log($"RightClick.placeCube(): {x.Message}");
+        }
+
     }
 
 }

@@ -24,6 +24,7 @@ public class SudoDrag : MonoBehaviour
     Quaternion _originalRotation;
     public float _rotateSpeed = 1f;
     Quaternion _toRotation = Quaternion.identity;
+
     private void Awake()
     {
     }
@@ -43,20 +44,19 @@ public class SudoDrag : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            turn(RIGHT);
+            turn(LEFT);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            turn(LEFT);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            turn(DOWN);
+            turn(RIGHT);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            turn(UP
-                );
+            turn(DOWN); // down goes to the "up" side.
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            turn(UP);
         }
     }
 

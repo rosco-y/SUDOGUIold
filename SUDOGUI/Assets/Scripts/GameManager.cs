@@ -151,7 +151,8 @@ public class GameManager : MonoBehaviour
                         nCube = Instantiate(_cubes[v]);
                     else
                         nCube = Instantiate(_cubes[0]);
-                    nCube.SudoValue = v; // save the data in the SudoCube object.
+
+                    nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
                     nCube.transform.position = new Vector3(curX, curY, curZ);
                     nCube.gameObject.transform.parent = _sudoKube.transform;

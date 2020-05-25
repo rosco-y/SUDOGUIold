@@ -12,7 +12,7 @@ public class SudoCube : MonoBehaviour
     // Start is called before the first frame update
     public bool[] SelectedValues { get; set; }
     Transform _camera;
-    int _sudoValue;
+    private int _sudoValue;
     bool _sudoHole = false;
     int _sudoSolution;
     SudoCube[] _cubes;
@@ -20,6 +20,11 @@ public class SudoCube : MonoBehaviour
     {
         SelectedValues = new bool[g.PUZZLESIZE + 1]; // so offsets are not needed.
         _camera = Camera.main.transform;
+        Canvas canvas = GetComponentInChildren<Canvas>();
+        if (canvas != null)
+        {
+            canvas.worldCamera = Camera.main;
+        }
         loadCubePrefabArray();
     }
 
@@ -42,6 +47,7 @@ public class SudoCube : MonoBehaviour
         this.transform.LookAt(_camera);
         transform.rotation = _camera.rotation;
     }
+
 
 
     public int SudoValue
