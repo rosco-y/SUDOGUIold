@@ -44,9 +44,11 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         Quaternion rotation = parent.gameObject.transform.rotation;
         Button rbutton = GetComponentInChildren<Button>(); // uniquely named in this block
         TMP_Text rtext = rbutton.GetComponentInChildren<TMP_Text>();
-        _error = rtext.text != parent.SudoSolution.ToString();
+        int solution = parent.SudoSolution;
+        _error = rtext.text != solution.ToString();
         Destroy(parent.gameObject);
-        placeCube(rtext.text, location, rotation);
+        //parent.enabled = false;
+        placeCube(rtext.text, location, rotation, solution);
     }
 
     void leftClick()
@@ -68,7 +70,7 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         }
 
     }
-    void placeCube(string cubeNo, Vector3 location, Quaternion rotation)
+    void placeCube(string cubeNo, Vector3 location, Quaternion rotation, int solution)
     {
 
         SudoPromoted nCube;
@@ -80,7 +82,8 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         try
         {
             nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoPromoted>(sCubeDir));
-            nCube.SudoValue = int.Parse(cubeNo);
+            nCube.SudoSolution = solution;
+
             nCube.transform.position = location;
             nCube.transform.rotation = rotation;
         }

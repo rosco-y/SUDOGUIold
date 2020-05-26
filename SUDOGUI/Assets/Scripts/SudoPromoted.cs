@@ -8,7 +8,7 @@ using System;
 public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 {
     Transform _camera;
-    public int SudoValue { set; get; } = g.UNKNOWN;
+    public int SudoSolution { set; get; }
     bool _selectedValues;
 
     private void Start()
@@ -40,9 +40,9 @@ public class SudoPromoted : MonoBehaviour, IPointerClickHandler
         Quaternion rotation = transform.rotation;
         Destroy(transform.gameObject);
         SudoCube nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/UNK.prefab"));
+        nCube.SudoValue = SudoSolution; // set when UNK was promoted.
         nCube.transform.position = location;
         nCube.transform.rotation = rotation;
-        SudoValue = g.UNKNOWN;
     }
 
 }

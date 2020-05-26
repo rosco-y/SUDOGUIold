@@ -13,8 +13,10 @@ public class SudoCube : MonoBehaviour
     public bool[] SelectedValues { get; set; }
     Transform _camera;
     private int _sudoValue;
-    bool _sudoHole = false;
-    int _sudoSolution;
+    private bool _sudoHole = false;
+    private int _sudoSolution;
+
+
     SudoCube[] _cubes;
     void Start()
     {

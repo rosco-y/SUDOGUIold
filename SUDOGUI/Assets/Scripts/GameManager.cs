@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
         //numberTheFaces();
         makeHoles();
         placeDataInCubes();
-
-
     }
 
     int[] pattern;
