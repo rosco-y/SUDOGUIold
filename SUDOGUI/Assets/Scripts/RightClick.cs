@@ -58,7 +58,7 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         _selected = !_selected;
         if (_selected)
         {
-            text.color = Color.red;
+            text.faceColor = Color.red;
             text.fontStyle = FontStyles.Italic & FontStyles.Bold;
         }
         else
