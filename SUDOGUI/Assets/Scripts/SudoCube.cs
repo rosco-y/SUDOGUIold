@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class SudoCube : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool[] SelectedValues { get; set; }
+    //public bool[] SelectedValues { get; set; }
     Transform _camera;
     private int _sudoValue;
     private bool _sudoHole = false;
@@ -20,7 +20,6 @@ public class SudoCube : MonoBehaviour
     SudoCube[] _cubes;
     void Start()
     {
-        SelectedValues = new bool[g.PUZZLESIZE + 1]; // so offsets are not needed.
         _camera = Camera.main.transform;
         Canvas canvas = GetComponentInChildren<Canvas>();
         if (canvas != null)

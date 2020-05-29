@@ -173,11 +173,14 @@ public class GameManager : MonoBehaviour
         {
             string filename = @"D:\PROJECTS\SUDOKUBE\DATA\DATA.CSV";
             StreamReader rdr = new StreamReader(filename);
-            string lineRead;
-            while ((lineRead = rdr.ReadLine()) != null)
+            string lineRead = rdr.ReadLine();
+            if (lineRead.StartsWith("LID"))
+                lineRead = rdr.ReadLine(); // read past header row
+            do
             {
                 parseReadLine(lineRead);
             }
+            while ((lineRead = rdr.ReadLine()) != null);
         }
         catch (Exception x)
         {

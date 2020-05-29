@@ -24,6 +24,7 @@ public class SudoDrag : MonoBehaviour
     Quaternion _originalRotation;
     public float _rotateSpeed = 1f;
     Quaternion _toRotation = Quaternion.identity;
+    public bool _alternateRotation = false;
 
     private void Awake()
     {
@@ -73,22 +74,25 @@ public class SudoDrag : MonoBehaviour
         float curX = _originalRotation.eulerAngles.x;
         float curY = _originalRotation.eulerAngles.y;
         float curZ = _originalRotation.eulerAngles.z;
-
+        Vector3 toDirection = transform.forward;
+        int alt = 1;
+        if (_alternateRotation)
+        {
+            alt = -1;
+        }
         switch (direction)
         {
             case LEFT:
-                _toRotation = Quaternion.FromToRotation(Vector3.left, transform.forward);
-                //_toRotation = Quaternion.Euler(0f, curY + 90f, 0f); // Y
+                _toRotation = Quaternion.FromToRotation(Vector3.left, alt * transform.forward);
                 break;
             case RIGHT:
-                _toRotation = Quaternion.FromToRotation(Vector3.right, transform.forward);
-                //_toRotation = Quaternion.Euler(0f, curY - 90f, 0f); // -Y
+                _toRotation = Quaternion.FromToRotation(Vector3.right, alt * transform.forward);
                 break;
             case UP:
-                _toRotation = Quaternion.FromToRotation(Vector3.down, transform.forward);
+                _toRotation = Quaternion.FromToRotation(Vector3.down, alt * transform.forward);
                 break;
             case DOWN:
-                _toRotation = Quaternion.FromToRotation(Vector3.up, transform.forward);
+                _toRotation = Quaternion.FromToRotation(Vector3.up, alt * transform.forward);
                 break;
         }
         float x = correctError(_toRotation.eulerAngles.x);

@@ -58,14 +58,12 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         _selected = !_selected;
         if (_selected)
         {
-            GetComponentInParent<SudoCube>().SelectedValues[int.Parse(text.text)] = true;
             text.color = Color.red;
-            text.fontStyle = FontStyles.Bold;
+            text.fontStyle = FontStyles.Italic & FontStyles.Bold;
         }
         else
         {
-            GetComponentInParent<SudoCube>().SelectedValues[int.Parse(text.text)] = false;
-            text.color = Color.black;
+            text.faceColor = Color.black;
             text.fontStyle = FontStyles.Normal;
         }
 
