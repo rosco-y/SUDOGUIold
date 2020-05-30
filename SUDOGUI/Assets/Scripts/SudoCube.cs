@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+
 using TMPro;
+
 using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,7 +20,6 @@ public class SudoCube : MonoBehaviour
     private int _sudoSolution;
 
 
-    SudoCube[] _cubes;
     void Start()
     {
         _camera = Camera.main.transform;
@@ -26,20 +28,8 @@ public class SudoCube : MonoBehaviour
         {
             canvas.worldCamera = Camera.main;
         }
-        loadCubePrefabArray();
     }
 
-    void loadCubePrefabArray()
-    {
-        _cubes = new SudoCube[10];
-
-        _cubes[0] = AssetDatabase.LoadAssetAtPath<SudoCube>("Assets/Prefabs/UNK.prefab"); 
-
-        for (int i = 1; i < g.PUZZLESIZE+1; i++)
-        {
-            _cubes[i] = AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/s{i}.prefab"); 
-        }
-    }
 
 
     // Update is called once per frame
