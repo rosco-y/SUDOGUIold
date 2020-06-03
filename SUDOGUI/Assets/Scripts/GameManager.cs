@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     #region PRIVATE DATA
     int[][][] _puzzleData;
+    Dictionary<int, List<GameObject>> _dLayers;
+    bool[] _layerActive;
     #endregion
     #region PUBLIC DATA
     public SudoCube[] _cubes;
@@ -21,8 +23,13 @@ public class GameManager : MonoBehaviour
     #region CONSTRUCTION
     void Start()
     {
+        _dLayers = new Dictionary<int, List<GameObject>>();
+        _layerActive = new bool[g.PUZZLESIZE];
+        for (int i = 0; i < g.PUZZLESIZE; i++)
+        {
+            _layerActive[i] = true;
+        }
         readCSVData();
-        //numberTheFaces();
         makeHoles();
         placeDataInCubes();
     }
@@ -116,6 +123,8 @@ public class GameManager : MonoBehaviour
         GameObject _sudoKube = new GameObject("sudoKube");
         for (int z = 0; z < g.PUZZLESIZE; z++)
         {
+            List<GameObject> curLayerList = new List<GameObject>();
+            _dLayers.Add(z, curLayerList);
             if (!zFirst)
             {
                 if (z % 3 == 0)
@@ -149,11 +158,12 @@ public class GameManager : MonoBehaviour
                         nCube = Instantiate(_cubes[v]);
                     else
                         nCube = Instantiate(_cubes[0]);
-
+                    
                     nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
                     nCube.transform.position = new Vector3(curX, curY, curZ);
                     nCube.gameObject.transform.parent = _sudoKube.transform;
+                    curLayerList.Add(nCube.gameObject);
                     if (x % 3 == 0)
                         curX += dblSpace; // move in positive direction, left to right
                     else
@@ -163,7 +173,16 @@ public class GameManager : MonoBehaviour
         } //z 
     }
 
-
+    public void HideLayer(int layer)
+    {
+        List<GameObject> _objs = _dLayers[layer];
+        bool active = !_layerActive[layer];
+        _layerActive[layer] = active;
+        foreach (GameObject go in _objs)
+        {
+            go.SetActive(active);
+        }
+    }
 
     private void readCSVData()
     {
