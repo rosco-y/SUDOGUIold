@@ -5,8 +5,11 @@ using System.IO;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+
 using TMPro;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -158,7 +161,7 @@ public class GameManager : MonoBehaviour
                         nCube = Instantiate(_cubes[v]);
                     else
                         nCube = Instantiate(_cubes[0]);
-                    
+
                     nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
                     nCube.transform.position = new Vector3(curX, curY, curZ);
@@ -173,14 +176,16 @@ public class GameManager : MonoBehaviour
         } //z 
     }
 
-    public void HideLayer(int layer)
+    public void HideLayer(TMP_Text text)
     {
+        int layer = int.Parse(text.text) - 1;
         List<GameObject> _objs = _dLayers[layer];
         bool active = !_layerActive[layer];
         _layerActive[layer] = active;
         foreach (GameObject go in _objs)
         {
             go.SetActive(active);
+            text.faceColor = active ? Color.black : Color.red;
         }
     }
 

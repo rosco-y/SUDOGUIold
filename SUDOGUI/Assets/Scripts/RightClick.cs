@@ -47,7 +47,6 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         int solution = parent.SudoSolution;
         _error = rtext.text != solution.ToString();
         Destroy(parent.gameObject);
-        //parent.enabled = false;
         placeCube(rtext.text, location, rotation, solution);
     }
 

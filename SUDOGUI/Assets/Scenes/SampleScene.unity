@@ -708,10 +708,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 844470161}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -844,7 +844,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 1438728123}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1704,10 +1705,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 746914119}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1836,10 +1837,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1084100217}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2734,10 +2735,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1222261464}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2978,10 +2979,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 936977408}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3048,8 +3049,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438728122}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -512, y: -384, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1513468196}
@@ -3061,8 +3062,8 @@ Transform:
   - {fileID: 1360595072}
   - {fileID: 1857007486}
   - {fileID: 895870985}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 522530588}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1499539795
 GameObject:
@@ -3302,10 +3303,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1250727222}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3495,10 +3496,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 49702100}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3627,10 +3628,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 334395499}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3759,10 +3760,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1222511166}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: HideLayer
-        m_Mode: 3
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1499539797}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
           m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
