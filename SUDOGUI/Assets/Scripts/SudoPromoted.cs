@@ -8,6 +8,7 @@ using System;
 public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 {
     Transform _camera;
+    public int ID { get; set; }
     public int SudoSolution { set; get; }
     bool _selectedValues;
 

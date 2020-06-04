@@ -6,6 +6,7 @@ using TMPro;
 using UnityEditor;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 public class RightClick : MonoBehaviour, IPointerClickHandler
 {
@@ -40,14 +41,27 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
     void rightClick()
     {
         SudoCube parent = this.GetComponentInParent<SudoCube>();
+        int ID = parent.ID;
+        int rowCol = ID % 100;
+        int layer = ID - rowCol;
+        LinkedList<GameObject> curLayer;
         Vector3 location = parent.gameObject.transform.position;
         Quaternion rotation = parent.gameObject.transform.rotation;
         Button rbutton = GetComponentInChildren<Button>(); // uniquely named in this block
         TMP_Text rtext = rbutton.GetComponentInChildren<TMP_Text>();
         int solution = parent.SudoSolution;
         _error = rtext.text != solution.ToString();
+        curLayer = g.DLayers[layer];
+        foreach (GameObject obj in curLayer)
+        {
+            if (obj.GetComponent<SudoCube>()?.ID == ID)
+            {
+                curLayer.Remove(obj);
+                break;
+            }
+       }
         Destroy(parent.gameObject);
-        placeCube(rtext.text, location, rotation, solution);
+        placeCube(rtext.text, location, rotation, solution, curLayer);
     }
 
     void leftClick()
@@ -67,7 +81,7 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
         }
 
     }
-    void placeCube(string cubeNo, Vector3 location, Quaternion rotation, int solution)
+    void placeCube(string cubeNo, Vector3 location, Quaternion rotation, int solution, LinkedList<GameObject> curLayer)
     {
 
         SudoPromoted nCube;
@@ -81,6 +95,7 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
             nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoPromoted>(sCubeDir));
             nCube.SudoSolution = solution;
 
+            curLayer.AddLast(nCube.gameObject);
             nCube.transform.position = location;
             nCube.transform.rotation = rotation;
         }

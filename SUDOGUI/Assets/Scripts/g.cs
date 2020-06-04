@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using UnityEngine;
+
 
 public static class g
 {
@@ -10,7 +12,8 @@ public static class g
     static TimeSpan _doubleClickThreshold = new TimeSpan(0, 0, 0, 0, 350); // 3.5/10 of a second
     static DateTime _lastClickTime = DateTime.MinValue;
     public static bool DoubleClick = false;
-    static Random _rand = new Random();
+    static System.Random _rand = new System.Random();
+    public static Dictionary<int, LinkedList<GameObject>> DLayers = new Dictionary<int, LinkedList<GameObject>>();
     public static bool RandomBool()
     {
         return _rand.NextDouble() > .8;

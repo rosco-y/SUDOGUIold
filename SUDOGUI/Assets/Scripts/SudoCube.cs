@@ -15,6 +15,7 @@ public class SudoCube : MonoBehaviour
     // Start is called before the first frame update
     //public bool[] SelectedValues { get; set; }
     Transform _camera;
+    public int ID { get; set; }
     private int _sudoValue;
     private bool _sudoHole = false;
     private int _sudoSolution;

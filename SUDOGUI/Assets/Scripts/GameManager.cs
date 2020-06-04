@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     #region PRIVATE DATA
     int[][][] _puzzleData;
-    Dictionary<int, List<GameObject>> _dLayers;
+    
     bool[] _layerActive;
     #endregion
     #region PUBLIC DATA
@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     #region CONSTRUCTION
     void Start()
     {
-        _dLayers = new Dictionary<int, List<GameObject>>();
         _layerActive = new bool[g.PUZZLESIZE];
         for (int i = 0; i < g.PUZZLESIZE; i++)
         {
@@ -126,8 +125,8 @@ public class GameManager : MonoBehaviour
         GameObject _sudoKube = new GameObject("sudoKube");
         for (int z = 0; z < g.PUZZLESIZE; z++)
         {
-            List<GameObject> curLayerList = new List<GameObject>();
-            _dLayers.Add(z, curLayerList);
+            LinkedList<GameObject> curLayerList = new LinkedList<GameObject>();
+            g.DLayers.Add(z, curLayerList);
             if (!zFirst)
             {
                 if (z % 3 == 0)
@@ -165,8 +164,9 @@ public class GameManager : MonoBehaviour
                     nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
                     nCube.transform.position = new Vector3(curX, curY, curZ);
+                    nCube.ID = z * 100 + y * 10 + x;  // zyx = layer-row-col
                     nCube.gameObject.transform.parent = _sudoKube.transform;
-                    curLayerList.Add(nCube.gameObject);
+                    curLayerList.AddLast(nCube.gameObject);
                     if (x % 3 == 0)
                         curX += dblSpace; // move in positive direction, left to right
                     else
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
     public void HideLayer(TMP_Text text)
     {
         int layer = int.Parse(text.text) - 1;
-        List<GameObject> _objs = _dLayers[layer];
+        LinkedList<GameObject> _objs = g.DLayers[layer];
         bool active = !_layerActive[layer];
         _layerActive[layer] = active;
         foreach (GameObject go in _objs)
