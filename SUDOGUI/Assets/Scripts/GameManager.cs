@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     #region PRIVATE DATA
     int[][][] _puzzleData;
-    
+
     bool[] _layerActive;
     #endregion
     #region PUBLIC DATA
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
             _layerActive[i] = true;
         }
         readCSVData();
-        makeHoles();
+        //makeHoles();
         placeDataInCubes();
     }
 
@@ -178,14 +178,29 @@ public class GameManager : MonoBehaviour
 
     public void HideLayer(TMP_Text text)
     {
-        int layer = int.Parse(text.text) - 1;
-        LinkedList<GameObject> _objs = g.DLayers[layer];
-        bool active = !_layerActive[layer];
-        _layerActive[layer] = active;
-        foreach (GameObject go in _objs)
+        if (text.text == "A")
         {
-            go.SetActive(active);
-            text.faceColor = active ? Color.black : Color.red;
+            for (int i = 0; i < g.PUZZLESIZE; i++)
+            {
+                int L = 0;
+                foreach  (GameObject go in g.DLayers[i])
+                {
+                    _layerActive[L] = true;
+                    go.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            int layer = int.Parse(text.text) - 1;
+            LinkedList<GameObject> _objs = g.DLayers[layer];
+            bool active = !_layerActive[layer];
+            _layerActive[layer] = active;
+            foreach (GameObject go in _objs)
+            {
+                go.SetActive(active);
+                text.faceColor = active ? Color.black : Color.red;
+            }
         }
     }
 

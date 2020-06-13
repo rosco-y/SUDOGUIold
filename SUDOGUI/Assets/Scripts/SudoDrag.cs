@@ -24,7 +24,7 @@ public class SudoDrag : MonoBehaviour
     Quaternion _originalRotation;
     public float _rotateSpeed = 1f;
     Quaternion _toRotation = Quaternion.identity;
-    public bool _alternateRotation = false;
+    bool _rotationChanged = false;
 
     private void Awake()
     {
@@ -32,8 +32,11 @@ public class SudoDrag : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, _toRotation, _rotateSpeed * Time.deltaTime);
+        if (_rotationChanged)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, _toRotation, _rotateSpeed * Time.deltaTime);
+            _rotationChanged = !(transform.rotation == _toRotation);
+        }
     }
 
 
@@ -53,11 +56,11 @@ public class SudoDrag : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            turn(DOWN); // down goes to the "up" side.
+            turn(UP); // down goes to the "up" side.
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            turn(UP);
+            turn(DOWN);
         }
     }
 
@@ -71,35 +74,49 @@ public class SudoDrag : MonoBehaviour
     void turn(eTurnDirection direction)
     {
         _originalRotation = transform.rotation;
-        float curX = _originalRotation.eulerAngles.x;
-        float curY = _originalRotation.eulerAngles.y;
-        float curZ = _originalRotation.eulerAngles.z;
-        Vector3 toDirection = transform.forward;
-        int alt = 1;
-        if (_alternateRotation)
-        {
-            alt = -1;
-        }
+        _rotationChanged = true;
         switch (direction)
         {
             case LEFT:
-                _toRotation = Quaternion.FromToRotation(Vector3.left, alt * transform.forward);
+                _toRotation = Quaternion.FromToRotation(Vector3.left, transform.forward);
+                //_toRotation = Quaternion.LookRotation(Vector3.left,  transform.forward);
                 break;
             case RIGHT:
-                _toRotation = Quaternion.FromToRotation(Vector3.right, alt * transform.forward);
+                _toRotation = Quaternion.FromToRotation(Vector3.right, transform.forward);
+                // _toRotation = Quaternion.LookRotation(Vector3.right, transform.forward);
                 break;
             case UP:
-                _toRotation = Quaternion.FromToRotation(Vector3.down, alt * transform.forward);
+                //*********************************************************/
+                // currently testing
+                //*********************************************************/
+                _toRotation = Quaternion.FromToRotation(Vector3.forward, transform.up);
+                //_toRotation = Quaternion.LookRotation(Vector3.left, transform.up);
+
+                //_toRotation = Quaternion.LookRotation(Vector3.left, transform.right);
+                //_toRotation = Quaternion.LookRotation(Vector3.right, transform.right);
+
+                //_toRotation = Quaternion.LookRotation(Vector3.left, transform.forward);
+                //*********************************************************/
+                //*********************************************************/
                 break;
             case DOWN:
-                _toRotation = Quaternion.FromToRotation(Vector3.up, alt * transform.forward);
+                //_toRotation = Quaternion.LookRotation(Vector3.right, transform.forward);
+                //_toRotation = Quaternion.LookRotation(Vector3.right, transform.forward);
+                _toRotation = Quaternion.FromToRotation(Vector3.forward, -transform.up);
+                break;
+            default:
+                //we shouldn't got here, but if we did, then we aren't rotating.
+                _rotationChanged = false;
                 break;
         }
-        float x = correctError(_toRotation.eulerAngles.x);
-        float y = correctError(_toRotation.eulerAngles.y);
-        float z = correctError(_toRotation.eulerAngles.z);
-        _toRotation.eulerAngles = new Vector3(x, y, z);
-        //transform.Rotate(_toRotation.eulerAngles, Space.World);
+        if (_rotationChanged)
+        {
+            float x = correctError(_toRotation.eulerAngles.x);
+            float y = correctError(_toRotation.eulerAngles.y);
+            float z = correctError(_toRotation.eulerAngles.z);
+            _toRotation.eulerAngles = new Vector3(x, y, z);
+        }
+
 
     }
 

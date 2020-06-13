@@ -37,10 +37,23 @@ public class SudoPromoted : MonoBehaviour, IPointerClickHandler
 
     void rightClick()
     {
+        
+        int rowCol = ID % 100;
+        int layer = ID - rowCol;
+        LinkedList<GameObject> curLayer = g.DLayers[layer];
+        foreach (GameObject obj in curLayer)
+        {
+            if (obj.GetComponent<SudoPromoted>()?.ID == ID)
+            {
+                curLayer.Remove(obj);
+                break;
+            }
+        }
         Vector3 location = transform.position;
         Quaternion rotation = transform.rotation;
-        Destroy(transform.gameObject);
         SudoCube nCube = Instantiate(AssetDatabase.LoadAssetAtPath<SudoCube>($"Assets/Prefabs/UNK.prefab"));
+        curLayer.AddLast(nCube.gameObject);
+        Destroy(transform.gameObject);
         nCube.SudoValue = SudoSolution; // set when UNK was promoted.
         nCube.transform.position = location;
         nCube.transform.rotation = rotation;

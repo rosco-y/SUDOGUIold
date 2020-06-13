@@ -16,7 +16,7 @@ public static class g
     public static Dictionary<int, LinkedList<GameObject>> DLayers = new Dictionary<int, LinkedList<GameObject>>();
     public static bool RandomBool()
     {
-        return _rand.NextDouble() > .8;
+        return _rand.NextDouble() > .6;
     }
 
     public static void Click()
