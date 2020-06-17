@@ -2876,6 +2876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24aa8ee45bd4e6846bc4827a13bbde29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _makeHoles: 1
+  _percentHoles: 0.25
   _cubes:
   - {fileID: 6835037489117177678, guid: 4fd6e68d990e294498510f2addae64c1, type: 3}
   - {fileID: 8343929764568117863, guid: f6f6e92a89abffa4da1a8fabcc27821a, type: 3}
@@ -3291,7 +3293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a88173bd9fdaed43899ac8dc4b87d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateSpeed: 1
+  _rotateSpeed: 5
 --- !u!1 &1360595071
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,14 @@ public static class g
 {
     public const int PUZZLESIZE = 9;
     public const int UNKNOWN = 0;
-    static TimeSpan _doubleClickThreshold = new TimeSpan(0, 0, 0, 0, 350); // 3.5/10 of a second
+    static TimeSpan _doubleClickThreshold = new TimeSpan(0, 0, 0, 0, 500); // 1/2  of a second
     static DateTime _lastClickTime = DateTime.MinValue;
     public static bool DoubleClick = false;
     static System.Random _rand = new System.Random();
     public static Dictionary<int, LinkedList<GameObject>> DLayers = new Dictionary<int, LinkedList<GameObject>>();
-    public static bool RandomBool()
+    public static bool RandomBool(double percentTrue)
     {
-        return _rand.NextDouble() > .6;
+        return _rand.NextDouble() > 1f - percentTrue;
     }
 
     public static void Click()

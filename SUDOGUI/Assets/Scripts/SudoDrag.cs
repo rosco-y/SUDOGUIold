@@ -56,11 +56,11 @@ public class SudoDrag : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            turn(UP); // down goes to the "up" side.
+            turn(DOWN); // down goes to the "up" side.
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            turn(DOWN);
+            turn(UP);
         }
     }
 

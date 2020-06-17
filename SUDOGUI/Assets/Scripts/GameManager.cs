@@ -18,7 +18,12 @@ public class GameManager : MonoBehaviour
     int[][][] _puzzleData;
 
     bool[] _layerActive;
-    #endregion
+    [SerializeField]
+    bool _makeHoles = true;
+
+    [SerializeField]
+    double _percentHoles = .4f;
+    #endregion                *
     #region PUBLIC DATA
     public SudoCube[] _cubes;
     #endregion
@@ -32,7 +37,8 @@ public class GameManager : MonoBehaviour
             _layerActive[i] = true;
         }
         readCSVData();
-        //makeHoles();
+        if (_makeHoles)
+            makeHoles();
         placeDataInCubes();
     }
 
@@ -47,7 +53,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int C = 0; C < g.PUZZLESIZE; C++)
                 {
-                    if (g.RandomBool())
+                    if (g.RandomBool(_percentHoles))
                         _puzzleData[L][R][C] *= -1;
                 }
             }
@@ -183,7 +189,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < g.PUZZLESIZE; i++)
             {
                 int L = 0;
-                foreach  (GameObject go in g.DLayers[i])
+                foreach (GameObject go in g.DLayers[i])
                 {
                     _layerActive[L] = true;
                     go.SetActive(true);
