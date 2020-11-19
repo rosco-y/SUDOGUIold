@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     int[] pattern;
     private void makeHoles()
     {
-        UnityEngine.Random rand = new UnityEngine.Random();
+        System.Random rand = new System.Random();
 
         for (int L = 0; L < g.PUZZLESIZE; L++)
         {
@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour
             {
                 for (int C = 0; C < g.PUZZLESIZE; C++)
                 {
-                    if (g.RandomBool(_percentHoles))
+                    //if (true)//*/
+                    if (g.RandomBool(_percentHoles))//*/
                         _puzzleData[L][R][C] *= -1;
                 }
             }

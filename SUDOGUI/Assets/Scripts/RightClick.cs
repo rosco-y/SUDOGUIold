@@ -26,6 +26,7 @@ public class RightClick : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
+                    // record time so double-click can be "sensed"
                     lastLeftClickTime = DateTime.Now;
                     leftClick();
                 }
