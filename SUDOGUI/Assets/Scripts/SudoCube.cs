@@ -47,7 +47,7 @@ public class SudoCube : MonoBehaviour
         set
         {
             _sudoValue = value;
-            _sudoHole = (value < 0);
+            SudoHole = (value < 0);
             _sudoSolution = Mathf.Abs(value);
         }
         get
@@ -69,6 +69,10 @@ public class SudoCube : MonoBehaviour
     /// </summary>
     public bool SudoHole
     {
+        set
+        {
+            _sudoHole = value;
+        }
         get
         {
             return _sudoHole;

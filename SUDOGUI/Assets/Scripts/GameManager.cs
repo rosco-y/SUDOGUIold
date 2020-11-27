@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
 
             curY = TOP; // building array top-bottom, left-right.
 
+            int _canvasID = 0;
             bool yFirst = true;
             for (int y = 0; y < g.PUZZLESIZE; y++)
             {
@@ -168,6 +169,12 @@ public class GameManager : MonoBehaviour
                     else
                         nCube = Instantiate(_cubes[0]);
 
+                    if (nCube.SudoHole)
+                    { 
+                        unkCanvas can = nCube.GetComponent<unkCanvas>();
+                        can.CanvasID = ++_canvasID;
+                    }
+                    
                     nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
                     nCube.transform.position = new Vector3(curX, curY, curZ);
