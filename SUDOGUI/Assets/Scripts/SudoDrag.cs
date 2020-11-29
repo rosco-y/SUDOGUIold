@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System;
+using TMPro;
 
 public enum eTurnDirection
 {
@@ -21,7 +22,7 @@ public enum eTurnDirection
 
 public class SudoDrag : MonoBehaviour
 {
-
+    public TMP_Text _txtSide;
     cCur _currentSide;
     Quaternion _newRoation;
     Quaternion _curRotation;
@@ -90,7 +91,7 @@ public class SudoDrag : MonoBehaviour
         {
             // KeyCode.RightArraw => eMovement.Left,
             // opposite of the key pressed--so cube rotates toward the face pointed to by the keypress.
-            _currentSide.Move(eMovement.Left); 
+            _currentSide.Move(eMovement.Right); 
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
             /////////////////////////////////////////////////////////////
@@ -99,7 +100,7 @@ public class SudoDrag : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _currentSide.Move(eMovement.Right);
+            _currentSide.Move(eMovement.Left);
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
@@ -115,6 +116,8 @@ public class SudoDrag : MonoBehaviour
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
+        transform.rotation = _newRoation;
+        _txtSide.text = _currentSide.Face.ToString();
     }
 }
 
