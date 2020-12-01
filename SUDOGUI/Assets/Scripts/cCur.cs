@@ -31,18 +31,18 @@ public class cCur
 
     public int Move(eMovement movement)
     {
-
+        // dieFaces.cCur.Move()
         switch (movement)
         {
-            case Down:
+            case Up:
                 // make sure and do these assignments in order!
-                // ROLLING THE TOP AWAY 90 DEGREES.
+                // (to avoid reassigning freshly assigned variables: a = b; c = a;
                 _top = _facing;
                 _facing = Bottom;
                 _bottom = 7 - _top;
                 initializeSides();
                 break;
-            case Up:
+            case Down:
                 int ttop = _top;
                 _top = 7 - _facing;
                 _bottom = _facing;
@@ -50,25 +50,32 @@ public class cCur
                 initializeSides();
                 break;
             case Right:
-                int side = _sides[0];
-                int facingIndex = _sides.IndexOf(_facing);
-                if (facingIndex < (NUMSIDES + 2))
-                {
-                    _facing = _sides[facingIndex + 1];
-                }
-                else
-                    _facing = _sides[0];
+                //int side = _sides[0];
+                //int facingIndex = _sides.IndexOf(_facing);
+                //if (facingIndex < (NUMSIDES))
+                //{
+                //    _facing = _sides[facingIndex];
+                //}
+                //else
+                //    _facing = _sides[0];
 
-                _sides.RemoveAt(0);
-                _sides.Add(side);
+                int facingIndex = _sides.IndexOf(_facing);
+                rotate(_sides, eMovement.Right);
+                // rotate
+                _facing = _sides[facingIndex];
                 break;
             case Left:
-                int last = _sides.Count - 1;
-                side = _sides[last];
+                //int last = _sides.Count - 1;
+                //int side = _sides[last];
                 facingIndex = _sides.IndexOf(_facing);
-                _sides.RemoveAt(last);
-                _sides.Insert(0, side);
+                //_sides.RemoveAt(last);
+                //_sides.Insert(0, side);
+                rotate(_sides, eMovement.Left);
                 _facing = _sides[facingIndex];
+                //facingIndex = _sides.IndexOf(_facing);
+                //rotate(_sides, eMovement.Left);
+                //// rotate
+                //_facing = _sides[facingIndex];
                 break;
             default:
                 Console.Write($"Unhandled case: {movement.ToString()}");
@@ -78,6 +85,24 @@ public class cCur
         return _facing;
     }
 
+    void rotate(List<int> ls, eMovement movement)
+    {
+        
+        if (movement == eMovement.Right)
+        {
+            int len = ls.Count - 1;
+            int lastValue = ls[len];
+            ls.RemoveAt(len);
+            ls.Insert(0, lastValue);
+        }
+        else if (movement == eMovement.Left)
+        {
+            int firstValue = ls[0];
+            ls.RemoveAt(0);
+            ls.Add(firstValue);
+        }
+        
+    }
     ~cCur()
     {
         _sides?.Clear();
@@ -91,14 +116,20 @@ public class cCur
             case 1:
             case 6:
                 _sides = new List<int> { 2, 3, 5, 4 };
+                if (Top == 6)
+                    _sides.Reverse();
                 break;
             case 3:
             case 4:
                 _sides = new List<int> { 1, 2, 6, 5 };
+                if (Top == 4)
+                    _sides.Reverse();
                 break;
             case 2:
             case 5:
                 _sides = new List<int> { 1, 3, 6, 4 };
+                if (Top == 2)
+                    _sides.Reverse();
                 break;
         }
     }
@@ -150,21 +181,23 @@ public class cCur
     //*
     public override string ToString()
     {
-        int printLen = _sides.Count * 2;
+        int printLen = _sides.Count * 4;
         string die = "----------------\n";
-        die += $"| {_top} | {_bottom} |\n";
+        die += $"{_top}/{_bottom} \n";
         die += new string('-', printLen);
         die += "\n";
         foreach (int face in _sides)
         {
             if (face == Face)
-                die += $"[{face}]";
+                die += $"<*{face}*>";
             else
-                die += $" {face},";
+                die += $" {face}";
+            if (face != _sides[_sides.Count-1])
+                die += ",";
         }
-        die += "|\n";
+        die += "\n";
         die += new string('-', printLen);
-        die += new string('\n', 2);
+        //die += new string('\n', 2);
         return die;
     }
     //*/
