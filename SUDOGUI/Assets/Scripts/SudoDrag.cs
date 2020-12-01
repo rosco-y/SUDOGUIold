@@ -25,7 +25,7 @@ public class SudoDrag : MonoBehaviour
     public TMP_Text _txtSide;
     public TMP_Text _txtMovement;
     cCur _currentSide;
-    Quaternion _newRoation;
+    Quaternion _newRotation;
     Quaternion _curRotation;
     const int SPHERESIDES = 6;
     Quaternion _originalRotation;
@@ -39,7 +39,7 @@ public class SudoDrag : MonoBehaviour
         initializeRotations();
         _currentSide = new cCur(5, 6);
         _txtSide.text = _currentSide.ToString();
-        _curRotation = _newRoation = this.transform.rotation;
+        _curRotation = _newRotation = this.transform.rotation;
     }
 
     private void initializeRotations()
@@ -76,7 +76,7 @@ public class SudoDrag : MonoBehaviour
     {
         if (_rotationChanged)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, _newRoation, _rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _newRotation, _rotateSpeed * Time.deltaTime);
             _rotationChanged = !(transform.rotation == _toRotation);
         }
     }
@@ -93,33 +93,33 @@ public class SudoDrag : MonoBehaviour
         {
             key = (int)eMovement.Right;
             _currentSide.Move(eMovement.Left); 
-            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _newRotation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             key = (int)eMovement.Left;
             _currentSide.Move(eMovement.Right);
-            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _newRotation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             key = (int)eMovement.Up;
             _currentSide.Move(eMovement.Up);
-            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _newRotation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             key = (int)eMovement.Down;
             _currentSide.Move(eMovement.Down);
-            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _newRotation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
         if (key > -1)
         {
-            transform.rotation = _newRoation;
+            //transform.rotation = _newRotation;
             _txtSide.text = _currentSide.ToString();
             _txtMovement.text = ((eMovement)key).ToString();
         }
