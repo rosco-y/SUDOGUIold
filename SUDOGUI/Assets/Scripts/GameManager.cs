@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
             _layerActive[i] = true;
         }
         readCSVData();
-        if (!_makeHoles)
+        if (_makeHoles)
             makeHoles();
         placeDataInCubes();
     }

@@ -23,8 +23,11 @@ public enum eTurnDirection
 public class SudoDrag : MonoBehaviour
 {
     public TMP_Text _txtSide;
+    public TMP_Text _txtMovement;
+    public Camera _MainCamera;
     cCur _currentSide;
     Quaternion _newRoation;
+    Quaternion _CameraRotation;
     Quaternion _curRotation;
     const int SPHERESIDES = 6;
     Quaternion _originalRotation;
@@ -32,12 +35,13 @@ public class SudoDrag : MonoBehaviour
     Quaternion _toRotation = Quaternion.identity;
     bool _rotationChanged = false;
     GameObject[] _SphereRotations;
+    GameObject[] _CameraRotations;
 
     private void Start()
     {
-
         initializeRotations();
         _currentSide = new cCur(5, 6);
+        _txtSide.text = _currentSide.ToString();
         _curRotation = _newRoation = this.transform.rotation;
     }
 
@@ -45,9 +49,12 @@ public class SudoDrag : MonoBehaviour
     {
         int side = 5;
         _SphereRotations = new GameObject[SPHERESIDES + 1];
+        _CameraRotations = new GameObject[SPHERESIDES + 1];
         for (int i = 0; i < SPHERESIDES + 1; i++)
         {
             _SphereRotations[i] = new GameObject();
+            _CameraRotations[i] = new GameObject();
+            _CameraRotations[i].transform.rotation = Quaternion.identity;
         }
         _SphereRotations[side].transform.rotation = Quaternion.Euler(0, 0, 0);
 
@@ -56,6 +63,7 @@ public class SudoDrag : MonoBehaviour
 
         side = 2;
         _SphereRotations[side].transform.rotation = Quaternion.Euler(0, 180, 0);
+        _CameraRotations[side].transform.rotation = Quaternion.Euler(0, 0, 180);
 
         side = 3;
         _SphereRotations[side].transform.rotation = Quaternion.Euler(0, 270, 0);
@@ -77,6 +85,8 @@ public class SudoDrag : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, _newRoation, _rotateSpeed * Time.deltaTime);
             _rotationChanged = !(transform.rotation == _toRotation);
+            //_MainCamera.transform.rotation = Quaternion.Slerp(transform.rotation, _CameraRotation, _rotateSpeed * Time.deltaTime);
+            //_rotationChanged = !(_MainCamera.transform.rotation == _CameraRotation);
         }
     }
 
@@ -87,11 +97,13 @@ public class SudoDrag : MonoBehaviour
     {
 
 
+        int key = -1;
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            key = (int)eMovement.Right;
             // KeyCode.RightArraw => eMovement.Left,
             // opposite of the key pressed--so cube rotates toward the face pointed to by the keypress.
-            _currentSide.Move(eMovement.Right); 
+            _currentSide.Move(eMovement.Left); 
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
             /////////////////////////////////////////////////////////////
@@ -100,24 +112,36 @@ public class SudoDrag : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _currentSide.Move(eMovement.Left);
+            key = (int)eMovement.Left;
+            _currentSide.Move(eMovement.Right);
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
-            _rotationChanged = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            _currentSide.Move(eMovement.Up);
-            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _CameraRotation = _CameraRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            _currentSide.Move(eMovement.Down);
+            key = (int)eMovement.Up;
+            _currentSide.Move(eMovement.Up);
             _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _CameraRotation = _CameraRotations[_currentSide.Face].transform.rotation;
             _rotationChanged = true;
         }
-        transform.rotation = _newRoation;
-        _txtSide.text = _currentSide.Face.ToString();
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            key = (int)eMovement.Down;
+            _currentSide.Move(eMovement.Down);
+            _newRoation = _SphereRotations[_currentSide.Face].transform.rotation;
+            _CameraRotation = _CameraRotations[_currentSide.Face].transform.rotation;
+            _rotationChanged = true;
+        }
+        if (key > -1)
+        {
+            //transform.rotation = _newRoation;
+            //_MainCamera.transform.rotation = _CameraRotation;
+            _txtSide.text = _currentSide.ToString();
+            _txtMovement.text = ((eMovement)key).ToString();
+        }
+        
     }
 }
 
