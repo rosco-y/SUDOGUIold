@@ -121,7 +121,7 @@ public class SudoDrag : MonoBehaviour
         {
             //transform.rotation = _newRotation;
             _txtSide.text = _currentSide.ToString();
-            _txtMovement.text = ((eMovement)key).ToString();
+            //_txtMovement.text = ((eMovement)key).ToString();
         }
         
     }
