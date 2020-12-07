@@ -120,94 +120,137 @@ public class GameManager : MonoBehaviour
         const float LEFT = -400f;
         const float TOP = 400F;
         const float FRONT = -400f;
-        float curX;
-        float curY;
-        float curZ;
+        // zyx = layer-row-col
+        float fCurCol;
+        float fCurRow;
+        float fCurLayer;
         float space = 125f;
         float dblSpace = 160f;
+        GameObject[][][] cubes = new GameObject[g.PUZZLESIZE+1][][];
+        for (int layer = 0; layer < g.PUZZLESIZE; layer++)
+        {
+            cubes[layer] = new GameObject[g.PUZZLESIZE+1][];
+            for (int row = 0; row < g.PUZZLESIZE; row++)
+            {
+                cubes[layer][row] = new GameObject[g.PUZZLESIZE+1];
+            }
 
+        }
 
-        curZ = FRONT;
+        fCurLayer = FRONT;
         bool zFirst = true;
         GameObject _sudoKube = new GameObject("sudoKube");
-        for (int z = 0; z < g.PUZZLESIZE; z++)
+        for (int iLayer = 0; iLayer < g.PUZZLESIZE; iLayer++)
         {
+
             LinkedList<GameObject> curLayerList = new LinkedList<GameObject>();
-            g.DLayers.Add(z, curLayerList);
+            g.DLayers.Add(iLayer, curLayerList);
             if (!zFirst)
             {
-                if (z % 3 == 0)
-                    curZ += dblSpace;  // move in positive direction, front - back
+                if (iLayer % 3 == 0)
+                    fCurLayer += dblSpace;  // move in positive direction, front - back
                 else
-                    curZ += space;
+                    fCurLayer += space;
             }
             zFirst = false;
 
-            curY = TOP; // building array top-bottom, left-right.
+            fCurRow = TOP; // building array top-bottom, left-right.
 
             int _canvasID = 0;
             bool yFirst = true;
-            for (int y = 0; y < g.PUZZLESIZE; y++)
+            for (int iRow = 0; iRow < g.PUZZLESIZE; iRow++)
             {
                 if (!yFirst)
                 {
-                    if (y % 3 == 0)
-                        curY -= dblSpace; // move in negative direction, top to bottom
+                    if (iRow % 3 == 0)
+                        fCurRow -= dblSpace; // move in negative direction, top to bottom
                     else
-                        curY -= space;
+                        fCurRow -= space;
                 }
                 yFirst = false;
 
-                curX = LEFT;
+                fCurCol = LEFT;
 
-                for (int x = 1; x < g.PUZZLESIZE + 1; x++)
+                // indexing iCol from 1 to 9 (instead of 0 to 8)
+                for (int iCol = 1; iCol < g.PUZZLESIZE + 1; iCol++)
                 {
                     SudoCube nCube;
-                    int v = _puzzleData[z][y][x - 1];
-                    if (v > 0)
-                        nCube = Instantiate(_cubes[v]);
+                    int iSudoValue = _puzzleData[iLayer][iRow][iCol - 1];
+                    if (iSudoValue > 0)
+                        nCube = Instantiate(_cubes[iSudoValue]);
                     else
                         nCube = Instantiate(_cubes[0]);
 
                     if (nCube.SudoHole)
-                    { 
+                    {
                         unkCanvas can = nCube.GetComponent<unkCanvas>();
                         can.CanvasID = ++_canvasID;
                     }
-                    
-                    nCube.SudoValue = v; // (- solution when cube is a unsolved)
 
-                    nCube.transform.position = new Vector3(curX, curY, curZ);
-                    nCube.ID = z * 100 + y * 10 + x;  // zyx = layer-row-col
+                    cubes[iLayer][iRow][iCol] = nCube.gameObject;
+
+                    nCube.SudoValue = iSudoValue; // (- solution when cube is a unsolved)
+
+                    nCube.transform.position = new Vector3(fCurCol, fCurRow, fCurLayer);
+                    nCube.ID = iLayer * 100 + iRow * 10 + iCol;  // zyx = layer-row-col
                     nCube.gameObject.transform.parent = _sudoKube.transform;
                     curLayerList.AddLast(nCube.gameObject);
-                    if (x % 3 == 0)
-                        curX += dblSpace; // move in positive direction, left to right
+                    if (iCol % 3 == 0)
+                        fCurCol += dblSpace; // move in positive direction, left to right
                     else
-                        curX += space;
-                } // x
-            }// y
-        } //z 
+                        fCurCol += space;
+                } // iCol
+            }// iRow
+        } //iLayer 
+
+        // add all ncube objects to the GameObject[][][] array, so they
+        // can be selectively added to the g.CLayers Dictionary<int, List<GameObject>>
+        // so I can try to hide row layers using the hideLayerButtons on the game Canva=s.
+
+        for (int ilayer = 0; ilayer < g.PUZZLESIZE; ilayer++)
+        {
+            for (int irow = 0; irow < g.PUZZLESIZE; irow++)
+            {
+                for (int icol = 0; icol < g.PUZZLESIZE; icol++)
+                {
+                    GameObject check = cubes[ilayer][irow][icol];
+                    int iUse = icol; // try the icol.
+                    if (!g.CLayers.ContainsKey(icol))
+                    {
+                        g.CLayers.Add(iUse, new LinkedList<GameObject>());
+                    }
+                    if (iUse == icol)
+                    {
+                        if (!g.CLayers[iUse].Contains(check))
+                            g.CLayers[iUse].AddLast(check);
+                    }
+                }
+            }
+        }
     }
 
     public void HideLayer(TMP_Text text)
     {
         if (text.text == "A")
         {
-            for (int i = 0; i < g.PUZZLESIZE; i++)
+            // i = 0 to 9, check for boundry issues.
+            for (int i = 0; i < g.PUZZLESIZE+1; i++)
             {
                 int L = 0;
-                foreach (GameObject go in g.DLayers[i])
+                if (g.CLayers.ContainsKey(i))
                 {
-                    _layerActive[L] = true;
-                    go.SetActive(true);
+                    foreach (GameObject go in g.CLayers[i])
+                    {
+                        _layerActive[L] = true;
+                        go.SetActive(true);
+                    }
                 }
             }
         }
         else
         {
-            int layer = int.Parse(text.text) - 1;
-            LinkedList<GameObject> _objs = g.DLayers[layer];
+            int layer = int.Parse(text.text);
+            LinkedList<GameObject> _objs = g.CLayers[layer];
             bool active = !_layerActive[layer];
             _layerActive[layer] = active;
             foreach (GameObject go in _objs)

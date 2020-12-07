@@ -14,6 +14,7 @@ public static class g
     public static bool DoubleClick = false;
     static System.Random _rand = new System.Random();
     public static Dictionary<int, LinkedList<GameObject>> DLayers = new Dictionary<int, LinkedList<GameObject>>();
+    public static Dictionary<int, LinkedList<GameObject>> CLayers = new Dictionary<int, LinkedList<GameObject>>();
     public static bool RandomBool(double percentTrue)
     {
         return _rand.NextDouble() > 1f - percentTrue;
